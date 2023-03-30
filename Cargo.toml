@@ -2,5 +2,7 @@
 name = "beaux2d"
 version = "0.1.0"
 edition = "2021"
+description = "An easy-to-use rust graphics library for drawing on a canvas. It is built on top of SDL2."
+license = "LICENSE"
 [dependencies]
 sdl2 = "0.35.2"
