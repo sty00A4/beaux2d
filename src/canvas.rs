@@ -1,7 +1,7 @@
 use sdl2::{
     self,
     Sdl, VideoSubsystem,
-    video::Window, render::Canvas, rect::Point,
+    video::Window, render::Canvas, rect::{Point, Rect},
 };
 use crate::{
     color::Color,
@@ -38,6 +38,15 @@ impl Canvas2D {
         self.canvas.clear();
     }
     pub fn point(&mut self, pos: Vec2<i32>) {
-        self.canvas.draw_point(Point::new(pos.x, pos.y));
+        self.canvas.draw_point(pos);
+    }
+    pub fn line(&mut self, start: Vec2<i32>, end: Vec2<i32>) {
+        self.canvas.draw_line(start, end);
+    }
+    pub fn rect(&mut self, rect: Rect) {
+        self.canvas.draw_rect(rect);
+    }
+    pub fn rect_filled(&mut self, rect: Rect) {
+        self.canvas.fill_rect(rect);
     }
 }

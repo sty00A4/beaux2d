@@ -7,17 +7,18 @@ pub trait BeauxApp {
     fn close(&mut self);
     fn update(&mut self) {}
     fn draw(&mut self, canvas: &mut Canvas2D) {}
-    fn events(&mut self, canvas: &mut Canvas2D) {
-        for event in canvas.sdl.event_pump().unwrap().poll_iter() {
-            match event {
-                Event::Quit { .. } => { self.close(); }
-                _ => {}
-            }
+    fn event(&mut self, event: Event, canvas: &mut Canvas2D) {
+        match event {
+            Event::Quit { .. } => { self.close(); }
+            _ => {}
         }
     }
     fn run(&mut self, canvas: &mut Canvas2D) {
+        let mut event_pump = canvas.sdl.event_pump().unwrap();
         while !self.closed() {
-            self.events(canvas);
+            for event in event_pump.poll_iter() {
+                self.event(event, canvas);
+            }
             self.update();
             self.draw(canvas);
             canvas.canvas.present();
