@@ -17,6 +17,7 @@ pub trait BeauxApp {
     }
     fn run(&mut self, canvas: &mut Canvas2D) {
         while !self.closed() {
+            self.events(canvas);
             self.update();
             self.draw(canvas);
             canvas.canvas.present();
