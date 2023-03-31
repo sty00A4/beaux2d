@@ -4,7 +4,7 @@ use sdl2::{
     video::Window, render::Canvas, rect::{Point, Rect},
 };
 use crate::{
-    color::Color,
+    pixels::Color,
     vector::Vec2
 };
 
