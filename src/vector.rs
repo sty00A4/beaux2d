@@ -1,6 +1,7 @@
 use std::ops::*;
 use sdl2::rect::Point;
 
+/// A 2D vector containing the fields `x` and `y` of any type
 pub struct Vec2<T> {
     pub x: T,
     pub y: T
