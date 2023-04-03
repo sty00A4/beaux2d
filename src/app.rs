@@ -7,6 +7,19 @@ pub trait BeauxApp {
 
     /// This function checks if the program has been stopped, which is
     /// needed for the standard `event` function.
+    /// Usually you'd have a variable in the
+    /// struct like `closed`.
+    /// ```rust
+    /// struct App {
+    ///     ...
+    ///     closed: bool
+    /// }
+    /// impl App {
+    ///     fn init() -> Self {...}
+    ///     fn closed(&self) -> bool { self.closed }
+    ///     fn close(&mut self) { self.closed = true }
+    /// }
+    /// ```
     fn closed(&self) -> bool;
 
     /// Closes the program in any way. Usually you'd have a variable in the
@@ -19,7 +32,7 @@ pub trait BeauxApp {
     /// impl App {
     ///     fn init() -> Self {...}
     ///     fn closed(&self) -> bool { self.closed }
-    ///     fn close(&mut self) { self.closed = !self.closed }
+    ///     fn close(&mut self) { self.closed = true }
     /// }
     /// ```
     fn close(&mut self);
@@ -30,7 +43,16 @@ pub trait BeauxApp {
     /// Draw function that is called every frame
     fn draw(&mut self, canvas: &mut Canvas2D) {}
 
-    /// Event handling function called every frame
+    /// Event handling function called every frame.
+    /// If not defined the function will be defined as following:
+    /// ```rust
+    /// fn event(&mut self, event: Event, canvas: &mut Canvas2D) {
+    ///     match event {
+    ///         Event::Quit { .. } => { self.close(); }
+    ///         _ => {}
+    ///     }
+    /// }
+    /// ```
     fn event(&mut self, event: Event, canvas: &mut Canvas2D) {
         match event {
             Event::Quit { .. } => { self.close(); }
